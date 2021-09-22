@@ -28,16 +28,18 @@ export class AppComponent {
     if (thread) {
       this.service.queueMessage(dealPublicId, thread.id);
     }
-    // can we use an existing thread_creation row?
-    else if (this.service.threadCreationTable.find(row => row.dealPublicId === dealPublicId)) {
-      const message = this.service.queueMessage(dealPublicId);
-      this.service.insertBarcodeThreadMapRow(dealPublicId, message.barcode);
-    }
-    // create a thread_creation row
+    // check thread_creation table
     else {
-      this.service.insertThreadCreationRow(dealPublicId);
       const message = this.service.queueMessage(dealPublicId);
-      this.service.insertBarcodeThreadMapRow(dealPublicId, message.barcode);
+      // can we use an existing thread_creation row?
+      if (this.service.threadCreationTable.find(row => row.dealPublicId === dealPublicId)) {
+        this.service.insertBarcodeThreadMapRow(dealPublicId, message.barcode);
+      }
+      // create a thread_creation row
+      else {
+        this.service.insertThreadCreationRow(dealPublicId);
+        this.service.insertBarcodeThreadMapRow(dealPublicId, message.barcode);
+      }
     }
   }
 
