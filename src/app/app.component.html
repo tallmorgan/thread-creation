@@ -4,13 +4,13 @@
       Deal Public ID
       <input
         type="text"
-        [(ngModel)]="ids.deal"
+        [(ngModel)]="dealId"
       />
     </div>
     <div class="actions-column">
       <button
         type="button"
-        (click)="createMessage(ids.deal)"
+        (click)="createMessage(dealId)"
       >
         Create message
       </button>
@@ -19,7 +19,7 @@
 
   <div class="actions-row resolve-message">
     <button
-      *ngFor="let message of pendingMessages"
+      *ngFor="let message of service.pendingMessages"
       type="button"
       (click)="resolveMessage(message)"
     >
@@ -31,14 +31,14 @@
 <div class="tables">
   <div class="table">
     <strong>thread_creation</strong>
-    <pre>{{stringify(threadCreationTable)}}</pre>
+    <pre>{{stringify(service.threadCreationTable)}}</pre>
   </div>
   <div class="table">
     <strong>barcode_thread_map</strong>
-    <pre>{{stringify(barcodeThreadMapTable)}}</pre>
+    <pre>{{stringify(service.barcodeThreadMapTable)}}</pre>
   </div>
   <div class="table">
     <strong>master_thread</strong>
-    <pre>{{stringify(masterThreadTable)}}</pre>
+    <pre>{{stringify(service.masterThreadTable)}}</pre>
   </div>
 </div>
