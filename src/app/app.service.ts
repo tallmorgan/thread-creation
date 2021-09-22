@@ -17,7 +17,7 @@ export class AppService {
 
   pendingMessages: PendingMessage[] = [];
 
-  ids = {
+  private ids = {
     message: 0,
     barcodeThreadMap: 0,
     threadCreation: 0,
@@ -78,6 +78,12 @@ export class AppService {
       `lorem ipsum ${this.ids.message}`,
     ));
     return this.pendingMessages[this.pendingMessages.length - 1];
+  }
+
+  receiveMessage(message: PendingMessage) {
+    this.pendingMessages = this.pendingMessages.filter(row => {
+      return row !== message;
+    });
   }
 
   insertThreadCreationRow(dealPublicId: string) {

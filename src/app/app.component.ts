@@ -44,7 +44,7 @@ export class AppComponent {
   }
 
   resolveMessage(message: PendingMessage) {
-    this.service.pendingMessages = this.service.pendingMessages.filter(row => row !== message);
+    this.service.receiveMessage(message);
     // was the message created when a thread already existed?
     if (message.threadId) {
       this.service.insertMessage(message.threadId, message);
@@ -55,8 +55,8 @@ export class AppComponent {
       const threadCreationRow = this.service.threadCreationTable.find(row => row.id === barcodeRow.threadCreationId)!;
       // do we need to create a thread via thread_creation?
       if (!threadCreationRow.masterThreadId) {
-        this.service.insertMasterThreadRow(message);
-        this.service.insertMessage(this.service.ids.thread, message);
+        const masterThreadRow = this.service.insertMasterThreadRow(message);
+        this.service.insertMessage(masterThreadRow.id, message);
         this.service.updateThreadCreationTable(threadCreationRow.id);
         this.service.deleteBarcodeThreadMapRow(message.barcode);
       }
