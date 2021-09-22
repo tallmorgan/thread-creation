@@ -1,0 +1,27 @@
+:host {
+  font-family: "Bitstream Vera Sans Mono", "DejaVu Sans Mono", Monaco, monospace;
+}
+
+.tables {
+  display: flex;
+}
+
+.table {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: 0;
+}
+
+.actions, .actions-row {
+  display: flex;
+  align-items: flex-end;
+}
+
+.actions-row button, .actions-column {
+  margin-right: 10px;
+}
+
+.actions-column {
+  display: flex;
+  flex-direction: column;
+}
